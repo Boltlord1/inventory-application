@@ -1,4 +1,4 @@
-import { getAllItems } from '../database/queries.js'
+import { getAllItems, getItem } from '../database/queries.js'
 
 async function getAll(req, res) {
     const rows = await getAllItems()
@@ -6,7 +6,12 @@ async function getAll(req, res) {
 }
 
 async function getOne(req, res) {
-    res.render('item')
+    const id = req.params.id
+    const item = await getItem(Number(id))
+    if (item === null) {
+        return
+    }
+    res.render('item', { item: item })
 }
 
 export default {

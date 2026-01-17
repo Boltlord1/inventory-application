@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Item ID</title>
+    <title>Item <%= item.item_id %></title>
 </head>
 <body>
     <%- include('nav') %>
-    <h2>Item ID Page</h2>
+    <main>
+        <h2>Item <%= item.item_id %> Page</h2>
+        <h3><%= item.item_name %></h3>
+        <p>Stock: <%= item.stock %></p>
+        <p>Category: <a href=<%- `/category/${item.cat_id}` %>><%= item.cat_name %></a></p>
+        <p>Brand: <a href=<%- `/brand/${item.brand_id}` %>><%= item.brand_name %></a></p>
+    </main>
 </body>
 </html>

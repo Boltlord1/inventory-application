@@ -11,7 +11,7 @@
         <h2>Brands Page</h2>
         <% for (const row of rows) { %>
             <div>
-                <h3><%= row.brand_name %></h3>
+                <h3><a href=<%- `/brand/${row.brand_id}` %>><%= row.brand_name %></a></h3>
                 <p><%= row.brand_desc %></p>
                 <p><%= row.brand_id %></p>
             </div>

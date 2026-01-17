@@ -1,4 +1,4 @@
-import { getAllCategories } from '../database/queries.js'
+import { getAllCategories, getCategory } from '../database/queries.js'
 
 async function getAll(req, res) {
     const rows = await getAllCategories()
@@ -6,7 +6,12 @@ async function getAll(req, res) {
 }
 
 async function getOne(req, res) {
-    res.render('category')
+    const id = req.params.id
+    const result = await getCategory(Number(id))
+    if (result === null) {
+        return
+    }
+    res.render('category', { row: result.category, products: result.products })
 }
 
 export default {

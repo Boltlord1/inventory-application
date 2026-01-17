@@ -1,4 +1,4 @@
-import { getAllBrands } from '../database/queries.js'
+import { getAllBrands, getBrand } from '../database/queries.js'
 
 async function getAll(req, res) {
     const rows = await getAllBrands()
@@ -6,7 +6,12 @@ async function getAll(req, res) {
 }
 
 async function getOne(req, res) {
-    res.render('brand')
+    const id = req.params.id
+    const result = await getBrand(Number(id))
+    if (result === null) {
+        return
+    }
+    res.render('brand', { row: result.brand, products: result.products })
 }
 
 export default {

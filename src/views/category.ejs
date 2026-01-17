@@ -3,10 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category ID</title>
+    <title>Category <%= row.cat_id %></title>
 </head>
 <body>
     <%- include('nav') %>
-    <h2>Category ID Page</h2>
+    <main>
+        <h2>Category <%= row.cat_id %> Page</h2>
+        <h3><%= row.cat_name %></h3>
+        <p><%= row.cat_desc %></p>
+        <h2>Products</h2>
+        <% if (products.length === 0) { %>
+            <h3>No Products</h3>
+        <% } else { %>
+        <% for (const item of products) { %>
+            <div>
+                <h3><a href=<%- `/item/${item.item_id}` %>><%= item.item_name %></a></h3>
+            </div>
+        <% } } %>
+    </main>
 </body>
 </html>
