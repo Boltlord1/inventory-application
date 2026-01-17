@@ -7,6 +7,15 @@
 </head>
 <body>
     <%- include('nav') %>
-    <h2>Brands</h2>
+    <main>
+        <h2>Brands Page</h2>
+        <% for (const row of rows) { %>
+            <div>
+                <h3><%= row.brand_name %></h3>
+                <p><%= row.brand_desc %></p>
+                <p><%= row.brand_id %></p>
+            </div>
+        <% } %>
+    </main>
 </body>
 </html>

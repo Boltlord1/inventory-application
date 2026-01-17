@@ -11,15 +11,16 @@ async function getAllBrands() {
 }
 
 async function getAllItems() {
-    const items = (await pool.query('SELECT * FROM item')).rows
-    const categories = (await pool.query('SELET * FROM category')).rows
-    const brand = (await pool.query('SELET * FROM brand')).rows
+    const query = `
+    SELECT item_id, item_name, item_stock, item.cat_id, cat_name, item.brand_id, brand_name FROM item
+    JOIN brand
+    ON item.brand_id = brand.brand_id
+    JOIN category
+    ON item.cat_id = category.cat_id;
+    `
 
-    items.brandName = brand.name
-    items.catName = categories.name
-
-    console.log(items)
-    return items
+    const { rows } = await pool.query(query)
+    return rows
 }
 
 export {

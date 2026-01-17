@@ -7,6 +7,17 @@
 </head>
 <body>
     <%- include('nav') %>
-    <h2>Items Page</h2>
+    <main>
+        <h2>Items Page</h2>
+        <% for (const row of rows) { %>
+            <div>
+                <h3><%= row.item_name %></h3>
+                <p>Id: <%= row.item_id %></p>
+                <p>Stock: <%= row.item_stock %></p>
+                <p>Category: <%= row.cat_name %></p>
+                <p>Brand: <%= row.brand_name %></p>
+            </div>
+        <% } %>
+    </main>
 </body>
 </html>

@@ -1,8 +1,11 @@
-function getAll(req, res) {
-    res.render('brands')
+import { getAllBrands } from '../database/queries.js'
+
+async function getAll(req, res) {
+    const rows = await getAllBrands()
+    res.render('brands', { rows: rows })
 }
 
-function getOne(req, res) {
+async function getOne(req, res) {
     res.render('brand')
 }
 
