@@ -8,6 +8,8 @@
   },
   "scripts": {
     "start": "node src/app.js",
-    "env": "node --env-file=.env src/app.js"
+    "env": "node --env-file=.env src/app.js",
+    "pop": "node src/database/populate.js",
+    "popenv": "node --env-file=.env src/database/populate.js"
   }
 }
