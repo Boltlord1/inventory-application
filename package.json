@@ -10,6 +10,8 @@
     "start": "node src/app.js",
     "env": "node --env-file=.env src/app.js",
     "pop": "node src/database/populate.js",
-    "popenv": "node --env-file=.env src/database/populate.js"
+    "popenv": "node --env-file=.env src/database/populate.js",
+    "tab": "node src/database/tables.js",
+    "tabenv": "node --env-file=.env src/database/tables.js"
   }
 }

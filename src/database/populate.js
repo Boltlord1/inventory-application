@@ -2,8 +2,9 @@ import pool from './pool.js'
 
 try {
     console.log('Emptying tables...')
-    await pool.query('TRUNCATE TABLE categories;')
-    await pool.query('TRUNCATE TABLE items;')
+    await pool.query('TRUNCATE TABLE category RESTART IDENTITY CASCADE;')
+    await pool.query('TRUNCATE TABLE brand RESTART IDENTITY CASCADE;')
+    await pool.query('TRUNCATE TABLE item;')
     console.log('Empited tables.')
 } catch (err) {
     console.log('Failed to empty tables.')
@@ -12,32 +13,45 @@ try {
 
 const categories = [
     { name: 'Men\'s clothing', desc: 'Apparel for men.' },
-    { name: 'Women\'s clothing', desc: 'Apparel for women.' }
+    { name: 'Women\'s clothing', desc: 'Apparel for women.' },
+    { name: 'Accessories', desc: 'Accessories for all.' }
+]
+
+const brands = [
+    { name: 'Brand A', desc: 'Produces clothing.' },
+    { name: 'Brand B', desc: 'Produces accessories.' }
 ]
 
 const items = [
-    { name: 'White t-shirt', brand: 'Brand A', stock: 80, category: 1 },
-    { name: 'White blouse', brand: 'Brand A', stock: 60, category: 2 },
-    { name: 'Blue t-shirt', brand: 'Brand A', stock: 45, category: 1 },
-    { name: 'Brown purse', brand: 'Brand B', stock: 15, category: 2 }
+    { name: 'White t-shirt', stock: 80, category: 1, brand: 1 },
+    { name: 'White blouse', stock: 60, category: 2, brand: 1 },
+    { name: 'Blue t-shirt', stock: 45, category: 1, brand: 1 },
+    { name: 'Brown purse', stock: 15, category: 3, brand: 2 }
 ]
 
 async function populateCategories() {
     for (const category of categories) {
-        await pool.query('INSERT INTO categories (cat_name, cat_desc) VALUES ($1, $2)', [category.name, category.desc])
+        await pool.query('INSERT INTO category (cat_name, cat_desc) VALUES ($1, $2)', [category.name, category.desc])
+    }
+}
+
+async function populateBrand() {
+    for (const brand of brands) {
+        await pool.query('INSERT INTO brand (brand_name, brand_desc) VALUES ($1, $2)', [brand.name, brand.desc])
     }
 }
 
 async function populateItems() {
     for (const item of items) {
-        await pool.query('INSERT INTO categories (item_name, item_brand, item_stock, cat_id) VALUES ($1, $2)',
-            [item.name, item.brand, item.stock, item.category])
+        await pool.query('INSERT INTO item (item_name, item_stock, cat_id, brand_id) VALUES ($1, $2, $3, $4)',
+            [item.name, item.stock, item.category, item.brand])
     }
 }
 
 try {
     console.log('Populating tables...')
     await populateCategories()
+    await populateBrand()
     await populateItems()
     console.log('Populated tables.')
 } catch (err) {
