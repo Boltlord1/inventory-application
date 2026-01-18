@@ -12,21 +12,23 @@ try {
 }
 
 const categories = [
+    { name: 'Uncategorized', desc: 'For items which don\'t belong in a category.'},
     { name: 'Men\'s clothing', desc: 'Apparel for men.' },
     { name: 'Women\'s clothing', desc: 'Apparel for women.' },
     { name: 'Accessories', desc: 'Accessories for all.' }
 ]
 
 const brands = [
+    { name: 'No brand', desc: 'For items which have no listed brand.' },
     { name: 'Brand A', desc: 'Produces clothing.' },
     { name: 'Brand B', desc: 'Produces accessories.' }
 ]
 
 const items = [
-    { name: 'White t-shirt', stock: 80, category: 1, brand: 1 },
-    { name: 'White blouse', stock: 60, category: 2, brand: 1 },
-    { name: 'Blue t-shirt', stock: 45, category: 1, brand: 1 },
-    { name: 'Brown purse', stock: 15, category: 3, brand: 2 }
+    { name: 'White t-shirt', stock: 80, category: 2, brand: 2 },
+    { name: 'White blouse', stock: 60, category: 3, brand: 2 },
+    { name: 'Blue t-shirt', stock: 45, category: 2, brand: 2 },
+    { name: 'Brown purse', stock: 15, category: 4, brand: 3 }
 ]
 
 async function populateCategories() {
