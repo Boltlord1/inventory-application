@@ -51,11 +51,18 @@ async function getItem(id) {
     return rows[0]
 }
 
+async function getBoth() {
+    const categories = (await pool.query('SELECT cat_id, cat_name FROM category')).rows
+    const brands = (await pool.query('SELECT brand_id, brand_name FROM brand')).rows
+    return { categories, brands }
+}
+
 export {
     getAllCategories,
     getAllBrands,
     getAllItems,
     getCategory,
     getBrand,
-    getItem
+    getItem,
+    getBoth
 }

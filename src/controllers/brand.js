@@ -1,8 +1,9 @@
-import { getAllBrands, getBrand } from '../database/queries.js'
+import { getAllBrands, getBrand } from '../database/select.js'
+import { insertBrand } from '../database/insert.js'
 
 async function getAll(req, res) {
     const rows = await getAllBrands()
-    res.render('brands', { rows: rows })
+    res.render('brand/all', { rows: rows })
 }
 
 async function getOne(req, res) {
@@ -11,10 +12,15 @@ async function getOne(req, res) {
     if (result === null) {
         return
     }
-    res.render('brand', { row: result.brand, products: result.products })
+    res.render('brand/one', { row: result.brand, products: result.products })
+}
+
+async function getNew(req, res) {
+    res.render('brand/new')
 }
 
 export default {
     getAll,
-    getOne
+    getOne,
+    getNew
 }

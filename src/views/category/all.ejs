@@ -6,9 +6,10 @@
     <title>Categories</title>
 </head>
 <body>
-    <%- include('nav') %>
+    <%- include('../nav') %>
     <main>
         <h2>Categories Page</h2>
+        <a href="/category/new">New Category</a>
         <% for (const row of rows) { %>
             <div>
                 <h3><a href=<%- `/category/${row.cat_id}` %>><%= row.cat_name %></a></h3>

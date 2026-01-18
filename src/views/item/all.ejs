@@ -6,9 +6,10 @@
     <title>Inventory Application</title>
 </head>
 <body>
-    <%- include('nav') %>
+    <%- include('../nav') %>
     <main>
         <h2>Items Page</h2>
+        <a href="/item/new">New Item</a>
         <% for (const row of rows) { %>
             <div>
                 <h3><a href=<%- `/item/${row.item_id}` %>><%= row.item_name %></a></h3>

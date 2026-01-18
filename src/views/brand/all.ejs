@@ -6,9 +6,10 @@
     <title>Brands</title>
 </head>
 <body>
-    <%- include('nav') %>
+    <%- include('../nav') %>
     <main>
         <h2>Brands Page</h2>
+        <a href="/brand/new">New Brand</a>
         <% for (const row of rows) { %>
             <div>
                 <h3><a href=<%- `/brand/${row.brand_id}` %>><%= row.brand_name %></a></h3>
