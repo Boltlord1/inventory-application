@@ -57,6 +57,11 @@ async function getBoth() {
     return { categories, brands }
 }
 
+async function getIDs(table, column) {
+    const { rows } = await pool.query(`SELECT ${column} FROM ${table};`)
+    return rows
+}
+
 export {
     getAllCategories,
     getAllBrands,
@@ -64,5 +69,6 @@ export {
     getCategory,
     getBrand,
     getItem,
-    getBoth
+    getBoth,
+    getIDs
 }

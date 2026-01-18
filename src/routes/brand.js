@@ -7,4 +7,6 @@ router.get('/', controller.getAll)
 router.get('/new', controller.getNew)
 router.get('/:id', controller.getOne)
 
+router.post('/new', controller.postNew)
+
 export default router

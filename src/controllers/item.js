@@ -1,4 +1,7 @@
+import { validationResult, matchedData } from 'express-validator'
 import { getAllItems, getItem, getBoth } from '../database/select.js'
+import { insertItem } from '../database/insert.js'
+import { varchar, stock, id } from '../validate.js'
 
 async function getAll(req, res) {
     const rows = await getAllItems()
@@ -19,8 +22,29 @@ async function getNew(req, res) {
     res.render('item/new', { categories: categories, brands: brands })
 }
 
+async function postNewLast(req, res) {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        const messages = errors.array().map((err) => err.msg)
+        res.status(400).render('invalid', { messages: messages, link: '/item/new' })
+        return
+    }
+    const { item_name, item_stock, cat_id, brand_id } = matchedData(req)
+    await insertItem(item_name, item_stock, cat_id, brand_id)
+    res.redirect('/item')
+}
+
+const postNew = [
+    varchar('item_name'),
+    stock,
+    await id('cat_id'),
+    await id('brand_id'),
+    postNewLast
+]
+
 export default {
     getAll,
     getOne,
-    getNew
+    getNew,
+    postNew
 }
