@@ -5,7 +5,7 @@ try {
     await pool.query('TRUNCATE TABLE category RESTART IDENTITY CASCADE;')
     await pool.query('TRUNCATE TABLE brand RESTART IDENTITY CASCADE;')
     await pool.query('TRUNCATE TABLE item;')
-    console.log('Empited tables.')
+    console.log('Emptied tables.')
 } catch (err) {
     console.log('Failed to empty tables.')
     console.error(err)

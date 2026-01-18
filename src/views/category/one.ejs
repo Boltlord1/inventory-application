@@ -11,6 +11,9 @@
         <h2>Category <%= row.cat_id %> Page</h2>
         <h3><%= row.cat_name %></h3>
         <p><%= row.cat_desc %></p>
+        <% if (row.cat_id > 1) { %>
+            <form action=<%- `/category/${row.cat_id}/delete` %> method="post"><button type="submit">Delete</button></form>
+        <% } %>
         <h2>Products</h2>
         <% if (products.length === 0) { %>
             <h3>No Products</h3>

@@ -1,6 +1,7 @@
 import { validationResult, matchedData } from 'express-validator'
 import { getAllCategories, getCategory } from '../database/select.js'
 import { insertCategory } from '../database/insert.js'
+import { deleteCategory } from '../database/delete.js'
 import { varchar, text } from '../validate.js'
 
 async function getAll(req, res) {
@@ -9,8 +10,8 @@ async function getAll(req, res) {
 }
 
 async function getOne(req, res) {
-    const id = req.params.id
-    const result = await getCategory(Number(id))
+    const id = Number(req.params.id)
+    const result = await getCategory(id)
     if (result === null) {
         return
     }
@@ -39,9 +40,16 @@ const postNew = [
     postNewLast
 ]
 
+async function postDelete(req, res) {
+    const id = Number(req.params.id)
+    if (id !== 1) await deleteCategory(id)
+    res.redirect('/category')
+}
+
 export default {
     getAll,
     getOne,
     getNew,
-    postNew
+    postNew,
+    postDelete
 }

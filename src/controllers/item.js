@@ -1,6 +1,7 @@
 import { validationResult, matchedData } from 'express-validator'
 import { getAllItems, getItem, getBoth } from '../database/select.js'
 import { insertItem } from '../database/insert.js'
+import { deleteItem } from '../database/delete.js'
 import { varchar, stock, id } from '../validate.js'
 
 async function getAll(req, res) {
@@ -9,8 +10,8 @@ async function getAll(req, res) {
 }
 
 async function getOne(req, res) {
-    const id = req.params.id
-    const item = await getItem(Number(id))
+    const id = Number(req.params.id)
+    const item = await getItem(id)
     if (item === null) {
         return
     }
@@ -42,9 +43,16 @@ const postNew = [
     postNewLast
 ]
 
+async function postDelete(req, res) {
+    const id = Number(req.params.id)
+    if (id !== 1) await deleteItem(id)
+    res.redirect('/item')
+}
+
 export default {
     getAll,
     getOne,
     getNew,
-    postNew
+    postNew,
+    postDelete
 }

@@ -8,5 +8,6 @@ router.get('/new', controller.getNew)
 router.get('/:id', controller.getOne)
 
 router.post('/new', controller.postNew)
+router.post('/:id/delete', controller.postDelete)
 
 export default router

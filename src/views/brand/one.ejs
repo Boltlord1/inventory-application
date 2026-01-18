@@ -11,6 +11,9 @@
         <h2>Brand <%= row.brand_id %> Page</h2>
         <h3><%= row.brand_name %></h3>
         <p><%= row.brand_desc %></p>
+        <% if (row.brand_id > 1) { %>
+            <form action=<%- `/brand/${row.brand_id}/delete` %> method="post"><button type="submit">Delete</button></form>
+        <% } %>
         <h2>Products</h2>
         <% if (products.length === 0) { %>
             <h3>No Products</h3>
