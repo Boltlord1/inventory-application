@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Category <%= row.cat_id %></title>
+</head>
+<body>
+    <%- include('../nav') %>
+    <form action=<%- `/category/${row.cat_id}/edit` %> method="post">
+        <label for="cat_name">Category Name:</label>
+        <input type="text" name="cat_name" id="cat_name" value="<%= row.cat_name %>" required>
+        <label for="cat_desc">Category Description (optional):</label>
+        <input type="text" name="cat_desc" id="cat_desc" value="<%= row.cat_desc %>">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

@@ -1,7 +1,8 @@
 import { validationResult, matchedData } from 'express-validator'
-import { getAllBrands, getBrand } from '../database/select.js'
+import { getAllBrands, getBrandWithProducts, getBrand } from '../database/select.js'
 import { insertBrand } from '../database/insert.js'
 import { deleteBrand } from '../database/delete.js'
+import { updateBrand } from '../database/update.js'
 import { varchar, text } from '../validate.js'
 
 async function getAll(req, res) {
@@ -11,7 +12,7 @@ async function getAll(req, res) {
 
 async function getOne(req, res) {
     const id = Number(req.params.id)
-    const result = await getBrand(id)
+    const result = await getBrandWithProducts(id)
     if (result === null) {
         return
     }
@@ -46,10 +47,45 @@ async function postDelete(req, res) {
     res.redirect('/brand')
 }
 
+async function getEdit(req, res) {
+    const id = Number(req.params.id)
+    if (id === 1) {
+        res.redirect('/brand')
+        return
+    }
+    const result = await getBrand(id)
+    res.render('brand/edit', { row: result })
+}
+
+async function postEditLast(req, res) {
+    const errors = validationResult(req)
+    const id = Number(req.params.id)
+    if (!errors.isEmpty()) {
+        const messages = errors.array().map((err) => err.msg)
+        res.status(400).render('invalid', { messages: messages, link: `/brand/${id}/edit` })
+        return
+    }
+    if (id === 1) {
+        res.redirect('/brand')
+        return
+    }
+    const { brand_name, brand_desc } = matchedData(req)
+    await updateBrand(id, brand_name, brand_desc)
+    res.redirect('/brand')
+}
+
+const postEdit = [
+    varchar('brand_name'),
+    text('brand_desc'),
+    postEditLast
+]
+
 export default {
     getAll,
     getOne,
     getNew,
     postNew,
-    postDelete
+    postDelete,
+    getEdit,
+    postEdit
 }

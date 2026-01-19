@@ -8,13 +8,11 @@ function varchar(name) {
         .withMessage('Name must not be empty.')
         .isLength({ max: 256 })
         .withMessage('Name can not be more than 32 characters.')
-        .escape()
 }
 
 function text(name) {
     return body(name)
         .trim()
-        .escape()
 }
 
 async function id(name) {

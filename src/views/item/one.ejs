@@ -13,9 +13,8 @@
         <p>Stock: <%= item.stock %></p>
         <p>Category: <a href=<%- `/category/${item.cat_id}` %>><%= item.cat_name %></a></p>
         <p>Brand: <a href=<%- `/brand/${item.brand_id}` %>><%= item.brand_name %></a></p>
-        <% if (item.item_id > 1) { %>
-            <form action=<%- `/item/${item.item_id}/delete` %> method="post"><button type="submit">Delete</button></form>
-        <% } %>
+        <form action=<%- `/item/${item.item_id}/delete` %> method="post"><button type="submit">Delete</button></form>
+        <a href=<%- `/item/${item.item_id}/edit` %>>Edit</a>
     </main>
 </body>
 </html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Item</title>
+</head>
+<body>
+    <%- include('../nav') %>
+    <form action=<%- `/item/${item.item_id}/edit` %> method="post">
+        <label for="item_name">Item Name:</label>
+        <input type="text" name="item_name" id="item_name" value="<%= item.item_name %>">
+        <label for="item_stock">Item Stock:</label>
+        <input type="number" name="item_stock" id="item_stock" value=<%= item.item_stock %>>
+        <label for="cat_id">Category:</label>
+        <select name="cat_id" id="cat_id">
+            <% for (const cat of categories) { %>
+                <option value=<%- cat.cat_id %> <%= item.cat_id === cat.cat_id ? 'selected' : '' %>><%= cat.cat_name %></option>
+            <% } %>
+        </select>
+        <label for="brand_id">Brand:</label>
+        <select name="brand_id" id="brand_id">
+            <% for (const brand of brands) { %>
+                <option value=<%- brand.brand_id %> <%= item.brand_id === brand.brand_id ? 'selected' : '' %>><%= brand.brand_name %></option>
+            <% } %>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

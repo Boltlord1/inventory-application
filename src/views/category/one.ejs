@@ -13,6 +13,7 @@
         <p><%= row.cat_desc %></p>
         <% if (row.cat_id > 1) { %>
             <form action=<%- `/category/${row.cat_id}/delete` %> method="post"><button type="submit">Delete</button></form>
+            <a href=<%- `/category/${row.cat_id}/edit` %>>Edit</a>
         <% } %>
         <h2>Products</h2>
         <% if (products.length === 0) { %>

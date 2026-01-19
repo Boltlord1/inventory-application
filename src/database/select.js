@@ -6,26 +6,26 @@ function getItemQuery() {
     JOIN brand
     ON item.brand_id = brand.brand_id
     JOIN category
-    ON item.cat_id = category.cat_id;
+    ON item.cat_id = category.cat_id
     `
 }
 
 async function getAllCategories() {
-    const { rows } = await pool.query('SELECT * FROM category;')
+    const { rows } = await pool.query('SELECT * FROM category ORDER BY cat_id;')
     return rows
 }
 
 async function getAllBrands() {
-    const { rows } = await pool.query('SELECT * FROM brand;')
+    const { rows } = await pool.query('SELECT * FROM brand ORDER BY brand_id;')
     return rows
 }
 
 async function getAllItems() {
-    const { rows } = await pool.query(getItemQuery())
+    const { rows } = await pool.query(getItemQuery().trim() + ' ORDER BY item_id;')
     return rows
 }
 
-async function getCategory(id) {
+async function getCategoryWithProducts(id) {
     if (!Number.isInteger(id)) return null
     const { rows } = await pool.query('SELECT * FROM category WHERE cat_id = $1;', [id])
     if (rows.length === 0) return null
@@ -34,7 +34,7 @@ async function getCategory(id) {
     return { category, products }
 }
 
-async function getBrand(id) {
+async function getBrandWithProducts(id) {
     if (!Number.isInteger(id)) return null
     const { rows } = await pool.query('SELECT * FROM brand WHERE brand_id = $1;', [id])
     if (rows.length === 0) return null
@@ -45,7 +45,7 @@ async function getBrand(id) {
 
 async function getItem(id) {
     if (!Number.isInteger(id)) return null
-    const query = getItemQuery().trim().slice(0, -1) + ' WHERE item_id = $1;'
+    const query = getItemQuery().trim() + ' WHERE item_id = $1 ORDER BY item_id;'
     const { rows } = await pool.query(query, [id])
     if (rows.length === 0) return null
     return rows[0]
@@ -62,13 +62,27 @@ async function getIDs(table, column) {
     return rows
 }
 
+async function getCategory(id) {
+    const { rows } = await pool.query('SELECT * FROM category WHERE cat_id = $1', [id])
+    if (rows.length === 0) return null
+    return rows[0]
+}
+
+async function getBrand(id) {
+    const { rows } = await pool.query('SELECT * FROM brand WHERE brand_id = $1', [id])
+    if (rows.length === 0) return null
+    return rows[0]
+}
+
 export {
     getAllCategories,
     getAllBrands,
     getAllItems,
-    getCategory,
-    getBrand,
+    getCategoryWithProducts,
+    getBrandWithProducts,
     getItem,
     getBoth,
-    getIDs
+    getIDs,
+    getCategory,
+    getBrand
 }

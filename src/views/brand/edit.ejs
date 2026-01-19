@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Brand <%= row.brand_id %></title>
+</head>
+<body>
+    <%- include('../nav') %>
+    <form action=<%- `/brand/${row.brand_id}/edit` %> method="post">
+        <label for="brand_name">Brand Name:</label>
+        <input type="text" name="brand_name" id="brand_name" value="<%= row.brand_name %>" required>
+        <label for="brand_desc">Brand Description (optional):</label>
+        <input type="text" name="brand_desc" id="brand_desc" value="<%= row.brand_desc %>">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
