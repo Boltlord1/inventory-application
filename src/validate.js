@@ -15,13 +15,15 @@ function text(name) {
         .trim()
 }
 
-async function id(name) {
+function id(name) {
     const table = name === 'cat_id' ? 'category' : 'brand'
-    const validIds = (await getIDs(table, name)).map(obj => obj[name])
     return body(name)
         .isInt()
         .toInt()
-        .isIn(validIds)
+        .custom(async value => {
+            const validIds = (await getIDs(table, name)).map(obj => obj[name])
+            return validIds.includes(value)
+        })
         .withMessage(`Invalid ID for ${table}.`)
 }
 
