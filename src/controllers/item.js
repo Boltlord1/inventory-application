@@ -39,8 +39,8 @@ async function postNewLast(req, res) {
 const postNew = [
     varchar('item_name'),
     stock,
-    await id('cat_id'),
-    await id('brand_id'),
+    id('cat_id'),
+    id('brand_id'),
     postNewLast
 ]
 
@@ -77,8 +77,8 @@ async function postEditLast(req, res) {
 const postEdit = [
     varchar('item_name'),
     stock,
-    await id('cat_id'),
-    await id('brand_id'),
+    id('cat_id'),
+    id('brand_id'),
     postEditLast
 ]
 
